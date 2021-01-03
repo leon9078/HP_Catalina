@@ -1,0 +1,351 @@
+HP Notebook 15-da1000nl
+
+System specs
+
+CPU: Intel Core i7-8565U 1.80 GHz (Turbo Boost 4.60 GHz)	8th Gen (Coffee Lake - Whiskey Lake)
+GPU:
+• NVIDIA GeForce MX130 (2 GB GDDR5)	[Unsupported]
+• Intel UHD Graphics 620 GT2
+RAM: 8 GB DDR4-2400 SDRAM (1 x 8 GB)
+Storage:
+• WD (Western Digital) SSD NVMe M.2 256 GB
+• WD (Western Digital) HDD SATA 2.5" 5400 rpm 1 TB	[Detached]
+Display: FHD 15.6" SVA anti-glare WLED-backlight (1920 x 1080)
+Trackpad: Synaptics SMBus TouchPad
+Ethernet: Realtek RTL8168/8111 GbE
+WiFi + BT (old): Realtek RTL8822BE	[Unsupported]
+WiFi + BT (new): Broadcom BCM94352Z 802.11ac (14e4:43b1)
+Expansion slot: SD Card reader						[Unsupported]
+External ports:
+• 2x USB 3.0
+• 1x USB 2.0
+• 1x HDMI 1.4b
+• 1x RJ-45
+• 1x Headphone/Microphone combo
+Webcam: HP TrueVision HD Camera w/ integrated digital microphone
+Audio:
+• Realtek ALC236 Codec
+• Intel HDMI Audio
+Physical MAC Address (Ethernet): E4 E7 49 67 BA EA	[Needed for SMBIOS > ROM]
+
+
+
+
+
+
+
+
+macOS: Catalina
+Version: 10.15.7 Supplemental update	[November 5, 2020]
+Build: 19H15
+
+
+
+
+
+
+
+
+ACPI Paths (original DSDT.aml)
+
+• Wake Alarm         ->            \_SB.AWAC
+• CPU           ->                 \_SB.PR00
+• iGPU          ->                 \_SB.PCI0.GFX0
+• Laptop monitor         ->        \_SB.PCI0.GFX0.DD1F
+• External monitor       ->        \_SB.PCI0.GFX0.DD02
+• Audio         ->                 \_SB.PCI0.HDAS
+• IMEI          ->                 \_SB.PCI0.HECI
+• LPCB             ->              \_SB.PCI0.LPCB
+• AC Adapter       ->              \_SB.PCI0.LPCB.ACAD
+• Battery          ->              \_SB.PCI0.LPCB.BAT1
+• Embedded Controller   ->         \_SB.PCI0.LPCB.EC0
+• HPET Timer       ->              \_SB.PCI0.LPCB.HPET
+• Interrupt controller  ->         \_SB.PCI0.LPCB.IPIC
+• LID Switch        ->             \_SB.PCI0.LPCB.LID0
+• PS/2 Keyboard     ->             \_SB.PCI0.LPCB.PS2K
+• Trackpad          ->             \_SB.PCI0.LPCB.PS2M
+• RTC               ->             \_SB.PCI0.LPCB.RTC
+• System Timer      ->             \_SB.PCI0.LPCB.TIMR
+• dGPU              ->             \_SB.PCI0.RP05.PXSX
+• Ethernet          ->             \_SB.PCI0.RP09.PXSX
+• WiFi              ->             \_SB.PCI0.RP10.PXSX
+• NVMe Controller     ->           \_SB.PCI0.RP13.PXSX
+• SATA Controller     ->           \_SB.PCI0.SAT0
+• Synaptics SMBus Driver    ->     \_SB.PCI0.SBUS
+• Alcorlink USB 2.0 Card Reader -> \_SB.PCI0.XHC.RHUB.HS04
+• Webcam            ->             \_SB.PCI0.XHC.RHUB.HS05.WCAM
+• Bluetooth         ->             \_SB.PCI0.XHC.RHUB.HS10
+
+
+USB Mapping
+
+Left USB3 port (Near HDMI port) [USB2]:  \_SB.PCI0.XHC.RHUB.HS01
+
+Left USB3 port (Near 3,5mm port) [USB2]: \_SB.PCI0.XHC.RHUB.HS02
+
+Right USB2 port:                         \_SB.PCI0.XHC.RHUB.HS03
+
+SD card:                                 \_SB.PCI0.XHC.RHUB.HS04
+
+Webcam:                                  \_SB.PCI0.XHC.RHUB.HS05
+
+Bluetooth:                               \_SB.PCI0.XHC.RHUB.HS10
+
+Left USB3 port (Near HDMI port) [USB3]:  \_SB.PCI0.XHC.RHUB.SS01
+
+Left USB3 port (Near 3,5mm port) [USB2]: \_SB.PCI0.XHC.RHUB.SS02
+
+
+
+
+
+
+
+
+Follow dortania's OpenCore Install Guide
+
+Use OpenCorePkg DEBUG
+Copy OC EFI/ to USB's EFI volume
+Copy Docs/Sample.plist to EFI/OC/ and rename to "config.plist"
+Remove everything from Drivers/ except OpenRuntime.efi
+• curl -LJ -o /Volumes/EFI/EFI/OC/Drivers/HfsPlus.efi "https://github.com/acidanthera/OcBinaryData/raw/master/Drivers/HfsPlus.efi"
+Remove everything from Tools/ except OpenShell.efi
+ProperTree (edit .plist files)
+gibMacOS (download full macOS Catalina installer from Apple servers)
+Build the installer (./BuildmacOSInstallApp.command)
+
+
+
+
+
+
+
+
+SSDTs (OC/ACPI/)
+
+SSDT-AWAC.aml [Made by me!]
+
+SSDT-BrightFN.aml [Made by me!]
+
+SSDT-dGPU-Off.aml (Disable laptop dGPU) [From dortania's Getting Started With ACPI extra-files/decompiled/SSDT-dGPU-Off.dsl.zip]
+
+	Change default PEG0.PEGP to RP05.PXSX in "External" and "If (CondRefOf" line
+
+SSDT-EC-USBX.aml (Fix Embedded Controller) [From OpenCorePkg Docs/AcpiSamples/SSDT-EC-USBX.dsl]
+
+SSDT-PLUG.aml [Made by me!]
+
+SSDT-PNLFCFL.aml (Add PNLF device for WhateverGreen.kext and others) [From WhateverGreen Manual/SSDT-PNLFCFL.dsl] [Needed for adjusting brightness]
+
+SSDT-SBUS-MCHC.aml (Fix SMBus support) [From OpenCorePkg Docs/AcpiSamples/SSDT-SBUS-MCHC.dsl]
+
+
+
+
+
+
+
+
+Kexts (OC/Kexts/)	[All Kexts are from acidanthera repos, if not specified]
+
+AirportBrcmFixup.kext v2.1.2 RELEASE
+AppleALC.kext v1.5.5 RELEASE
+BrcmBluetoothInjector.kext (From BrcmPatchRAM v2.5.5 RELEASE)
+BrcmFirmwareData.kext (From BrcmPatchRAM v2.5.5 RELEASE)
+BrcmPatchRAM3.kext (From BrcmPatchRAM v2.5.5 RELEASE)
+Lilu.kext v1.5.0 RELEASE
+NVMeFix.kext v1.0.4 RELEASE
+RealtekRTL8111.kext v2.2.2 RELEASE (From github.com/Mieze/RTL8111_driver_for_OS_X/releases/latest) [v2.3.0 DOES NOT WORK]
+SMCBatteryManager.kext	(From VirtualSMC v1.1.9 RELEASE)
+VirtualSMC.kext v1.1.9 RELEASE
+VoodooPS2Controller.kext v2.1.9 RELEASE
+VoodooRMI.kext (From VoodooRMI v1.2 RELEASE) [Download: github.com/VoodooSMBus/VoodooRMI]
+VoodooSMBus.kext (From VoodooRMI v1.2 RELEASE) [Download: github.com/VoodooSMBus/VoodooRMI]
+WhateverGreen.kext v1.4.5 RELEASE
+
+
+
+
+
+
+
+
+config.plist	[From OpenCorePkg Docs/Sample.plist]	[Use ProperTree Clean Snapshot]
+
+Delete all #WARNING entries
+
+ACPI > Patch > 0 > Enabled | bool | YES
+
+ACPI > Patch > 1 > Enabled | bool | YES
+
+Booter > Quirks
+
+• EnableSafeModeSlide | bool | NO
+• EnableWriteUnprotector | bool | NO
+• ProvideCustomSlide | bool | NO
+
+DeviceProperties > Add > PciRoot(0x0/Pci(0x1F,0x3):	[HDEF]
+• alc-layout-id | data | <03000000>
+
+DeviceProperties > Add > PciRoot(0x0)/Pci(0x2,0x0):	[IGPU]
+• AAPL,ig-platform-id | data | <00009B3E>
+• device-id | data | <9B3E0000>
+• framebuffer-patch-enable | data | <01000000>
+• framebuffer-con1-enable | data | <01000000>
+• framebuffer-con1-busid | data | <01000000>
+• framebuffer-con1-type | data | <00080000>
+• framebuffer-con2-enable | data | <01000000>
+• framebuffer-con2-busid | data | <00000000>
+• force-online | data | <01000000>
+• force-online-framebuffers | data | <00000000 00000001>
+• disable-agdc | data | <01000000>
+
+[Only from Big Sur+] Kernel > Add > AirportBrcmFixup.kext/Contents/PlugIns/AirPortBrcm4360_Injector.kext
+• MaxKernel | string | 19.9.9
+
+Kernel > Add > VoodooPS2Controller.kext/Contents/PlugIns/VoodooInput.kext
+• Enabled | bool | NO
+
+Kernel > Add > VoodooPS2Controller.kext/Contents/PlugIns/VoodooPS2Mouse.kext
+• Enabled | bool | NO
+
+Kernel > Add > VoodooPS2Controller.kext/Contents/PlugIns/VoodooPS2Trackpad.kext
+• Enabled | bool | NO
+
+Kernel > Add > VoodooRMI.kext/Contents/PlugIns/RMII2C.kext
+• Enabled | bool | NO
+
+{Create new!} Kernel > Patch > 6 [w/ following changes]
+
+• Base | string | [empty]
+• Comment | string | Fix lost IGPU HDMI Audio after wake from sleep
+• Count | integer | 0
+• Enabled | bool | YES
+• Find | data | 709D0000
+• Identifier | string | com.apple.driver.AppleHDAController
+• Replace | data | 48A30000
+
+Kernel > Quirks
+
+• DisableLinkeditJettison | bool | NO	[Enable in Big Sur+]
+• ExtendBTFeatureFlags | bool | YES	[Only if Bluetooth will work]
+• PanicNoKextDump | bool | YES
+
+Misc > Boot
+
+• Timeout | integer | 2
+
+Misc > Debug
+
+• AppleDebug | bool | YES [Set to NO when using RELEASE build]
+• ApplePanic | bool | YES [Set to NO when using RELEASE build]
+• SysReport | bool | YES [Set to NO when using RELEASE build]
+• Target | integer | 67 [Set to 0 when using RELEASE build]
+
+Misc > Security
+
+• AllowNvramReset | bool | YES
+• AllowSetDefault | bool | YES
+• BlacklistAppleUpdate | bool | NO	[Not needed in Big Sur+]
+• ScanPolicy | integer | 0
+• SecureBootModel | string | Disabled
+• Vault | string | Optional
+
+Misc > Tools
+
+• 0 > Name | string | UEFI Shell
+
+Delete NVRAM > Add > 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102
+
+NVRAM > Add > 7C436110-AB2A-4BBB-A880-FE41995C9F82
+
+• boot-args | string | -v keepsyms=1 debug=0x100 brcmfx-driver=2
+
+[Only from Big Sur+] Delete NVRAM > Add > 7C436110-AB2A-4BBB-A880-FE41995C9F82 > run-efi-updater
+
+NVRAM > Add > 7C436110-AB2A-4BBB-A880-FE41995C9F82
+
+• prev-lang:kbd | string | it:223
+
+Delete NVRAM > Delete > 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102
+
+
+
+
+
+
+
+
+GenSMBIOS (SMBIOS MacBookPro15,2)
+
+Option 1 > Option 3 > MacBookPro15,2 5
+
+• Type value goes to config.plist > PlatformInfo > Generic > SystemProductName
+• Serial value goes to config.plist > PlatformInfo > Generic > SystemSerialNumber
+• Board Serial value goes to config.plist > PlatformInfo > Generic > MLB
+• SmUUID value goes to config.plist > PlatformInfo > Generic > SystemUUID
+
+• ROM | data | <E4E74967BAEA> [Unique Ethernet MAC Address]
+
+
+UEFI > Audio > AudioDevice > PciRoot(0x0)/Pci(0x1F,0x3)
+
+
+
+
+
+Install macOS, after Setup, Identify the keyboard as ISO (European)!
+
+
+
+
+
+Post install
+
+• Optimize CPU Power Management [Follow dortania's Post Install guide: https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#using-cpu-friend]	Use the .kext at the end
+• Show PCI List in System Profiler: Install Hackintool > PCIe > Export (Use .plist in OC)
+
+
+
+
+
+Things to test (Post install)
+
+Test if there are NVMe KP due to system instability in lower power states. If there are, add forceRenderStandby=0 boot-arg
+
+
+
+
+
+
+
+
+Boot args needed
+
+Intel UHD Graphics 620: forceRenderStandby=0 (Some systems with IGPUs (e.g. KBL and CFL) may cause system instability in lower power states. Sometimes it can be noticed by NVMe kernel panics. The generally available workaround is passing forceRenderStandby=0 to kernel boot arguments to disable RC6 Render Standby)	[Maybe not needed]
+
+
+
+
+
+
+
+
+What works
+
+• USB are not ejected after wake from sleep!
+
+
+
+
+
+
+TRY TO FIX
+
+• SD card reader _SB.PCI0.XHC.RHUB.HS04
+
+• Webcam _SB.PCI0.XHC.RHUB.HS05.WCAM
+
+- Extract DSDT.aml with OpenCore DEBUG SysReport true, change HS05 and HS05.WCAM _UPC into Return (GUPC, One)
+
+• Fix Bluetooth not working Broadcom BCM94352Z
