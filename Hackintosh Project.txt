@@ -104,7 +104,7 @@ Left USB3 port (Near 3,5mm port) [USB2]: \_SB.PCI0.XHC.RHUB.SS02
 
 Follow dortania's OpenCore Install Guide
 
-Use OpenCorePkg DEBUG
+Use OpenCorePkg 0.6.5 RELEASE
 Copy OC EFI/ to USB's EFI volume
 Copy Docs/Sample.plist to EFI/OC/ and rename to "config.plist"
 Remove everything from Drivers/ except OpenRuntime.efi
@@ -293,59 +293,10 @@ UEFI > Audio > AudioDevice > PciRoot(0x0)/Pci(0x1F,0x3)
 
 
 
-
 Install macOS, after Setup, Identify the keyboard as ISO (European)!
-
-
-
-
-
-Post install
-
-• Optimize CPU Power Management [Follow dortania's Post Install guide: https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#using-cpu-friend]	Use the .kext at the end
-• Show PCI List in System Profiler: Install Hackintool > PCIe > Export (Use .plist in OC)
-
-
 
 
 
 Things to test (Post install)
 
 Test if there are NVMe KP due to system instability in lower power states. If there are, add forceRenderStandby=0 boot-arg
-
-
-
-
-
-
-
-
-Boot args needed
-
-Intel UHD Graphics 620: forceRenderStandby=0 (Some systems with IGPUs (e.g. KBL and CFL) may cause system instability in lower power states. Sometimes it can be noticed by NVMe kernel panics. The generally available workaround is passing forceRenderStandby=0 to kernel boot arguments to disable RC6 Render Standby)	[Maybe not needed]
-
-
-
-
-
-
-
-
-What works
-
-• USB are not ejected after wake from sleep!
-
-
-
-
-
-
-TRY TO FIX
-
-• SD card reader _SB.PCI0.XHC.RHUB.HS04
-
-• Webcam _SB.PCI0.XHC.RHUB.HS05.WCAM
-
-- Extract DSDT.aml with OpenCore DEBUG SysReport true, change HS05 and HS05.WCAM _UPC into Return (GUPC, One)
-
-• Fix Bluetooth not working Broadcom BCM94352Z
