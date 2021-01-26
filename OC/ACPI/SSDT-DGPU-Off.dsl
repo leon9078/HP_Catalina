@@ -1,4 +1,4 @@
-DefinitionBlock ("", "SSDT", 2, "HACK", "dGPU-Off", 0x00000000)
+DefinitionBlock ("", "SSDT", 2, "HACK", "DGPU-Off", 0x00000000)
 {
     External (_SB_.PCI0.RP05.PXSX._OFF, MethodObj)    // 0 Arguments
 

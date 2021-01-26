@@ -1,4 +1,4 @@
-DefinitionBlock ("", "SSDT", 2, "HACK", "_AWAC", 0x00000000)
+DefinitionBlock ("", "SSDT", 2, "HACK", "AWAC", 0x00000000)
 {
     External (_SB_.AWAC._STA, IntObj)
     External (_SB_.PCI0.LPCB.RTC_._STA, IntObj)
