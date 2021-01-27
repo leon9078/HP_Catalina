@@ -21,7 +21,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
     External (_SB_.PCI0.XHC_.RHUB.USR1, DeviceObj)
     External (_SB_.PCI0.XHC_.RHUB.USR2, DeviceObj)
 
-    Scope (_SB.PCI0.XHC.RHUB.HS01)
+    Scope (_SB.PCI0.XHC.RHUB.HS01) // Left USB3 near HDMI port
     {
         If (_OSI ("Darwin"))
         {
@@ -35,7 +35,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         }
     }
 
-    Scope (_SB.PCI0.XHC.RHUB.HS02)
+    Scope (_SB.PCI0.XHC.RHUB.HS02) // Left USB3 near 3,5mm port
     {
         If (_OSI ("Darwin"))
         {
@@ -49,7 +49,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         }
     }
 
-    Scope (_SB.PCI0.XHC.RHUB.HS03)
+    Scope (_SB.PCI0.XHC.RHUB.HS03) // Right USB2
     {
         If (_OSI ("Darwin"))
         {
@@ -63,7 +63,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         }
     }
 
-    Scope (_SB.PCI0.XHC.RHUB.HS04)
+    Scope (_SB.PCI0.XHC.RHUB.HS04) // Right SD card reader
     {
         If (_OSI ("Darwin"))
         {
@@ -77,7 +77,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         }
     }
 
-    Scope (_SB.PCI0.XHC.RHUB.HS05)
+    Scope (_SB.PCI0.XHC.RHUB.HS05) // Internal Webcam
     {
         If (_OSI ("Darwin"))
         {
@@ -175,7 +175,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         }
     }
 
-    Scope (_SB.PCI0.XHC.RHUB.HS10)
+    Scope (_SB.PCI0.XHC.RHUB.HS10) // Internal Bluetooth
     {
         If (_OSI ("Darwin"))
         {
@@ -217,7 +217,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         }
     }
 
-    Scope (_SB.PCI0.XHC.RHUB.SS01)
+    Scope (_SB.PCI0.XHC.RHUB.SS01) // Left USB3 near HDMI port
     {
         If (_OSI ("Darwin"))
         {
@@ -231,7 +231,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         }
     }
 
-    Scope (_SB.PCI0.XHC.RHUB.SS02)
+    Scope (_SB.PCI0.XHC.RHUB.SS02) // Left USB3 near 3,5mm port
     {
         If (_OSI ("Darwin"))
         {

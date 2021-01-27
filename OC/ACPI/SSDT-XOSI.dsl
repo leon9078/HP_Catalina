@@ -1,4 +1,4 @@
-DefinitionBlock ("", "SSDT", 2, "HACK", "_XOSI", 0x00000000)
+DefinitionBlock ("", "SSDT", 2, "HACK", "XOSI", 0x00000000)
 {
     Method (XOSI, 1, NotSerialized)
     {
