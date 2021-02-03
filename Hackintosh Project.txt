@@ -30,19 +30,7 @@ Physical MAC Address (Ethernet): E4 E7 49 67 BA EA	[Needed for SMBIOS > ROM]
 
 
 
-
-
-
-
-
-macOS: Catalina
-Version: 10.15.7 Supplemental update	[November 5, 2020]
-Build: 19H15
-
-
-
-
-
+macOS Catalina 10.15.7
 
 
 

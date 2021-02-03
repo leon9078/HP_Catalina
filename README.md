@@ -1,6 +1,6 @@
 # HP_Catalina
 
-BIOS: F.33  
+BIOS: F.35 Rev.A  
 File: 08532.bin
 
 ### BIOS Settings
