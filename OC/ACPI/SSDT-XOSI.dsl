@@ -18,13 +18,6 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "XOSI", 0x00000000)
                 "Microsoft Windows", 
                 "Microsoft WindowsME: Millennium Edition"
             }
-        If (_OSI ("Darwin"))
-        {
-            Return ((Ones != Match (Local0, MEQ, Arg0, MTR, Zero, Zero)))
-        }
-        Else
-        {
-            Return (_OSI (Arg0))
-        }
+        Return ((Ones != Match (Local0, MEQ, Arg0, MTR, Zero, Zero)))
     }
 }
