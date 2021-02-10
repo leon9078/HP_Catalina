@@ -79,3 +79,15 @@ Option 1 > Option 3 > MacBookPro15,2 5
 
 
 Install macOS, after Setup, Identify the keyboard as ISO (European)!
+
+### Post Install
+
+Enable Vault
+
+In Linux download OpenCore 0.6.6 RELEASE, and copy Utilities directory to EFI's root folder
+
+Boot macOS
+
+``` $ sudo diskutil mount /dev/disk0s1 && sed -i '' 's/Optional/Secure/' /Volumes/EFI/EFI/OC/config.plist && /Volumes/EFI/Utilities/CreateVault/sign.command && sleep 3 && diskutil umount /dev/disk0s1 ```
+
+Done!
