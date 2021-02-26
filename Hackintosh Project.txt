@@ -82,12 +82,14 @@ Install macOS, after Setup, Identify the keyboard as ISO (European)!
 
 ### Post Install
 
-Enable Vault
+1) Enable Vault
 
 In Linux download OpenCore 0.6.6 RELEASE, and copy Utilities directory to EFI's root folder
 
 Boot macOS
 
-$ sudo diskutil mount /dev/disk0s1 && sed -i '' 's/Optional/Secure/' /Volumes/EFI/EFI/OC/config.plist && /Volumes/EFI/Utilities/CreateVault/sign.command && sleep 3 && diskutil umount /dev/disk0s1
+$ sudo diskutil mount /dev/disk0s1 && sed -i '' 's/Optional/Secure/' /Volumes/EFI/EFI/OC/config.plist && /Volumes/EFI/Utilities/CreateVault/sign.command && rm -rf /Volumes/EFI/Utilities && sleep 2 && diskutil umount /dev/disk0s1
+
+2) Enable FileVault 2 in System Preferences
 
 Done!
