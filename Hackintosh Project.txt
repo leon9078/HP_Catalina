@@ -82,14 +82,18 @@ Install macOS, after Setup, Identify the keyboard as ISO (European)!
 
 ### Post Install
 
-1) Enable Vault
+1) Enable FileVault in System Preferences
 
-In Linux download OpenCore 0.6.6 RELEASE, and copy Utilities directory to EFI's root folder
+2) Enable OpenCore's "Vault" security feature
 
-Boot macOS
+First, make sure you have "Terminal" checked in System Preferences > Security & Privacy > Privacy > Full Disk Access
 
-$ sudo diskutil mount /dev/disk0s1 && sed -i '' 's/Optional/Secure/' /Volumes/EFI/EFI/OC/config.plist && /Volumes/EFI/Utilities/CreateVault/sign.command && rm -rf /Volumes/EFI/Utilities && sleep 2 && diskutil umount /dev/disk0s1
+Open Terminal, then type
 
-2) Enable FileVault 2 in System Preferences
+$ curl -LJO https://github.com/acidanthera/OpenCorePkg/releases/download/0.6.6/OpenCore-0.6.6-RELEASE.zip
+$ sudo diskutil mount /dev/disk0s1
+$ bsdtar -x --include="Utilities/" -f OpenCore-0.6.6-RELEASE.zip -C /Volumes/EFI/
+$ sed -i '' 's/Optional/Secure/' /Volumes/EFI/EFI/OC/config.plist
+$ /Volumes/EFI/Utilities/CreateVault/sign.command && find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" -o -name "Utilities" | xargs rm -rf && sleep 2 && diskutil umount /dev/disk0s1
 
 Done!
