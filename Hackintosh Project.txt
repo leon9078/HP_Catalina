@@ -78,6 +78,12 @@ Option 1 > Option 3 > MacBookPro15,2 5
 
 
 
+BEFORE INSTALL, make sure you change ScanPolicy sum value to also include USB and HFS+ scanning
+
+• sed -i '' 's/524547/2622211/' /Volumes/EFI/EFI/OC/config.plist
+
+
+
 Install macOS, after Setup, Identify the keyboard as ISO (European)!
 
 ### Post Install
@@ -88,8 +94,9 @@ Install macOS, after Setup, Identify the keyboard as ISO (European)!
 
 First, make sure you have "Terminal" checked in System Preferences > Security & Privacy > Privacy > Full Disk Access
 
-Open Terminal, then type
+Open Terminal, then type:
 
+$ touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress && softwareupdate -i "$(softwareupdate -l | awk '$1 == "*" {$1=$2=""; sub(/^[ \t]+/, ""); print}')" && rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
 $ curl -LJO https://github.com/acidanthera/OpenCorePkg/releases/download/0.6.6/OpenCore-0.6.6-RELEASE.zip
 $ sudo diskutil mount /dev/disk0s1
 $ bsdtar -x --include="Utilities/" -f OpenCore-0.6.6-RELEASE.zip -C /Volumes/EFI/
