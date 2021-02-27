@@ -96,11 +96,11 @@ First, make sure you have "Terminal" checked in System Preferences > Security & 
 
 Open Terminal, then type:
 
-$ touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress && softwareupdate -i "$(softwareupdate -l | awk '$1 == "*" {$1=$2=""; sub(/^[ \t]+/, ""); print}')" && rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+$ touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress && softwareupdate -i "$(softwareupdate -l | awk '$1 == "*" && $2 == "Label:" && $3 == "Command" && $4 == "Line" && $5 == "Tools" {$1=$2=""; sub(/^[ \t]+/, ""); print}')" && rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
 $ curl -LJO https://github.com/acidanthera/OpenCorePkg/releases/download/0.6.6/OpenCore-0.6.6-RELEASE.zip
 $ sudo diskutil mount /dev/disk0s1
 $ bsdtar -x --include="Utilities/" -f OpenCore-0.6.6-RELEASE.zip -C /Volumes/EFI/
 $ sed -i '' 's/Optional/Secure/' /Volumes/EFI/EFI/OC/config.plist
-$ /Volumes/EFI/Utilities/CreateVault/sign.command && find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" -o -name "Utilities" | xargs rm -rf && sleep 2 && diskutil umount /dev/disk0s1
+$ /Volumes/EFI/Utilities/CreateVault/sign.command && find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" -o -name "Utilities" | xargs rm -rf && sleep 1 && diskutil unmount /dev/disk0s1
 
 Done!
