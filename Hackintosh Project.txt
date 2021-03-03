@@ -78,23 +78,36 @@ Option 1 > Option 3 > MacBookPro15,2 5
 
 
 
-BEFORE INSTALL, make sure you change ScanPolicy sum value to also include USB and HFS+ scanning
-
-• sed -i '' 's/524547/2622211/' /Volumes/EFI/EFI/OC/config.plist
-
-
 
 Install macOS, after Setup, Identify the keyboard as ISO (European)!
 
-### Post Install
+### Post Install: adding Security features
 
->> Make sure you have config.plist > Misc > Security > ScanPolicy value back to 524547 in target EFI folder
+__1) Enable FileVault in "System Preferences > Security & Privacy > FileVault" (Choose recovery key)__  
+__2) ScanPolicy__  
+`$ sudo diskutil mount /dev/disk0s1`
 
-1) Enable FileVault in System Preferences
+Change "config.plist > Misc > Security > ScanPolicy" value from 0 to 524547 (FILE_SYSTEM_LOCK, DEVICE_LOCK, ALLOW_FS_APFS, ALLOW_DEVICE_NVME)
+__3) OpenCore Menu password__  
+`$ curl -LJO https://github.com/acidanthera/OpenCorePkg/releases/download/0.6.7/OpenCore-0.6.7-RELEASE.zip`  
+`$ unzip -j OpenCore-0.6.7-RELEASE.zip "Utilities/ocpasswordgen/ocpasswordgen"`  
+`$ ./ocpasswordgen` (Follow instructions)  
+`$ echo "{copy/paste output from PasswordHash}" | xxd -r -p | base64`
 
-2) Enable OpenCore's "Vault" security feature
+Copy output value to "config.plist > Misc > Security > PasswordHash"
+
+`$ echo "{copy/paste output from PasswordSalt}" | xxd -r -p | base64`
+
+Copy output value to "config.plist > Misc > Security > PasswordSalt"
+
+Change "config.plist > Misc > Security > EnablePassword" from NO to YES
+`$ rm ocpasswordgen OpenCore-0.6.7-RELEASE.zip`
+
+__4) OpenCore's "Vault"__
 
 First, make sure you have "Terminal" checked in System Preferences > Security & Privacy > Privacy > Full Disk Access
+
+Close every Finder window
 
 Open Terminal, then type:
 
@@ -103,6 +116,6 @@ $ curl -LJO https://github.com/acidanthera/OpenCorePkg/releases/download/0.6.6/O
 $ sudo diskutil mount /dev/disk0s1
 $ bsdtar -x --include="Utilities/" -C /Volumes/EFI/ -f OpenCore-0.6.6-RELEASE.zip && rm -rf OpenCore-0.6.6-RELEASE.zip
 $ sed -i '' 's/Optional/Secure/' /Volumes/EFI/EFI/OC/config.plist
-$ find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" | xargs rm -rf && /Volumes/EFI/Utilities/CreateVault/sign.command && find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" -o -name "Utilities" | xargs rm -rf && sleep 1 && diskutil unmount /dev/disk0s1
+$ find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" | xargs rm -rf && /Volumes/EFI/Utilities/CreateVault/sign.command && find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" -o -name "Utilities" | xargs rm -rf && diskutil unmount /dev/disk0s1
 
 Done!
