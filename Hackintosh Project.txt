@@ -36,33 +36,33 @@ macOS Catalina 10.15.7
 
 ACPI Paths (original DSDT.aml)
 
-• Wake Alarm         ->            \_SB.AWAC
-• CPU           ->                 \_SB.PR00
-• iGPU          ->                 \_SB.PCI0.GFX0
-• Laptop monitor         ->        \_SB.PCI0.GFX0.DD1F
-• External monitor       ->        \_SB.PCI0.GFX0.DD02
-• Audio         ->                 \_SB.PCI0.HDAS
-• IMEI          ->                 \_SB.PCI0.HECI
-• LPCB             ->              \_SB.PCI0.LPCB
-• AC Adapter       ->              \_SB.PCI0.LPCB.ACAD
-• Battery          ->              \_SB.PCI0.LPCB.BAT1
-• Embedded Controller   ->         \_SB.PCI0.LPCB.EC0
-• HPET Timer       ->              \_SB.PCI0.LPCB.HPET
-• Interrupt controller  ->         \_SB.PCI0.LPCB.IPIC
-• LID Switch        ->             \_SB.PCI0.LPCB.LID0
-• PS/2 Keyboard     ->             \_SB.PCI0.LPCB.PS2K
-• Trackpad          ->             \_SB.PCI0.LPCB.PS2M
-• RTC               ->             \_SB.PCI0.LPCB.RTC
-• System Timer      ->             \_SB.PCI0.LPCB.TIMR
-• dGPU              ->             \_SB.PCI0.RP05.PXSX
-• Ethernet          ->             \_SB.PCI0.RP09.PXSX
-• WiFi              ->             \_SB.PCI0.RP10.PXSX
-• NVMe Controller     ->           \_SB.PCI0.RP13.PXSX
-• SATA Controller     ->           \_SB.PCI0.SAT0
-• Synaptics SMBus Driver    ->     \_SB.PCI0.SBUS
-• Alcorlink USB 2.0 Card Reader -> \_SB.PCI0.XHC.RHUB.HS04
-• Webcam            ->             \_SB.PCI0.XHC.RHUB.HS05.WCAM
-• Bluetooth         ->             \_SB.PCI0.XHC.RHUB.HS10
+• Wake Alarm                        ->     \_SB.AWAC
+• CPU                               ->     \_SB.PR00
+• iGPU                              ->     \_SB.PCI0.GFX0
+• Laptop monitor                    ->     \_SB.PCI0.GFX0.DD1F
+• External monitor                  ->     \_SB.PCI0.GFX0.DD02
+• Audio                             ->     \_SB.PCI0.HDAS
+• IMEI                              ->     \_SB.PCI0.HECI
+• LPCB                              ->     \_SB.PCI0.LPCB
+• AC Adapter                        ->     \_SB.PCI0.LPCB.ACAD
+• Battery                           ->     \_SB.PCI0.LPCB.BAT1
+• Embedded Controller               ->     \_SB.PCI0.LPCB.EC0
+• HPET Timer                        ->     \_SB.PCI0.LPCB.HPET
+• Interrupt controller              ->     \_SB.PCI0.LPCB.IPIC
+• LID Switch                        ->     \_SB.PCI0.LPCB.LID0
+• PS/2 Keyboard                     ->     \_SB.PCI0.LPCB.PS2K
+• Trackpad                          ->     \_SB.PCI0.LPCB.PS2M
+• RTC                               ->     \_SB.PCI0.LPCB.RTC
+• System Timer                      ->     \_SB.PCI0.LPCB.TIMR
+• dGPU                              ->     \_SB.PCI0.RP05.PXSX
+• Ethernet                          ->     \_SB.PCI0.RP09.PXSX
+• WiFi                              ->     \_SB.PCI0.RP10.PXSX
+• NVMe Controller                   ->     \_SB.PCI0.RP13.PXSX
+• SATA Controller                   ->     \_SB.PCI0.SAT0
+• Synaptics SMBus Driver            ->     \_SB.PCI0.SBUS
+• Alcorlink USB 2.0 Card Reader     ->     \_SB.PCI0.XHC.RHUB.HS04
+• Webcam                            ->     \_SB.PCI0.XHC.RHUB.HS05.WCAM
+• Bluetooth                         ->     \_SB.PCI0.XHC.RHUB.HS10
 
 
 GenSMBIOS (SMBIOS MacBookPro15,2)
@@ -81,29 +81,25 @@ Option 1 > Option 3 > MacBookPro15,2 5
 
 Install macOS, after Setup, Identify the keyboard as ISO (European)!
 
-### Post Install: adding Security features
+Post Install: adding Security features!
 
-__1) Enable FileVault in "System Preferences > Security & Privacy > FileVault" (Choose recovery key)__  
-__2) ScanPolicy__  
-`$ sudo diskutil mount /dev/disk0s1`
+1) Enable FileVault in "System Preferences > Security & Privacy > FileVault" (Choose recovery key)
+2) ScanPolicy
+$ sudo diskutil mount /dev/disk0s1
 
 Change "config.plist > Misc > Security > ScanPolicy" value from 0 to 524547 (FILE_SYSTEM_LOCK, DEVICE_LOCK, ALLOW_FS_APFS, ALLOW_DEVICE_NVME)
-__3) OpenCore Menu password__  
-`$ curl -LJO https://github.com/acidanthera/OpenCorePkg/releases/download/0.6.7/OpenCore-0.6.7-RELEASE.zip`  
-`$ unzip -j OpenCore-0.6.7-RELEASE.zip "Utilities/ocpasswordgen/ocpasswordgen"`  
-`$ ./ocpasswordgen` (Follow instructions)  
-`$ echo "{copy/paste output from PasswordHash}" | xxd -r -p | base64`
+3) OpenCore Menu password
+$ curl -LJO https://github.com/acidanthera/OpenCorePkg/releases/download/0.6.7/OpenCore-0.6.7-RELEASE.zip
+$ unzip -j OpenCore-0.6.7-RELEASE.zip "Utilities/ocpasswordgen/ocpasswordgen"
+$ ./ocpasswordgen (Follow instructions)
+$ echo "{copy/paste output from PasswordHash}" | xxd -r -p | base64
+==> Copy output value to "config.plist > Misc > Security > PasswordHash"
+$ echo "{copy/paste output from PasswordSalt}" | xxd -r -p | base64
+==> Copy output value to "config.plist > Misc > Security > PasswordSalt"
+==> Change "config.plist > Misc > Security > EnablePassword" from <false> to <true>
+$ rm ocpasswordgen
 
-Copy output value to "config.plist > Misc > Security > PasswordHash"
-
-`$ echo "{copy/paste output from PasswordSalt}" | xxd -r -p | base64`
-
-Copy output value to "config.plist > Misc > Security > PasswordSalt"
-
-Change "config.plist > Misc > Security > EnablePassword" from NO to YES
-`$ rm ocpasswordgen OpenCore-0.6.7-RELEASE.zip`
-
-__4) OpenCore's "Vault"__
+4) OpenCore's "Vault"
 
 First, make sure you have "Terminal" checked in System Preferences > Security & Privacy > Privacy > Full Disk Access
 
@@ -112,7 +108,6 @@ Close every Finder window
 Open Terminal, then type:
 
 $ touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress && softwareupdate -i "$(softwareupdate -l | awk '$1 == "*" && $2 == "Label:" && $3 == "Command" && $4 == "Line" && $5 == "Tools" {$1=$2=""; sub(/^[ \t]+/, ""); print}')" && rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-$ curl -LJO https://github.com/acidanthera/OpenCorePkg/releases/download/0.6.7/OpenCore-0.6.7-RELEASE.zip
 $ bsdtar -x --include="Utilities/" -C /Volumes/EFI/ -f OpenCore-0.6.7-RELEASE.zip && rm OpenCore-0.6.7-RELEASE.zip
 $ sed -i '' 's/Optional/Secure/' /Volumes/EFI/EFI/OC/config.plist
 $ find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" | xargs rm -rf && /Volumes/EFI/Utilities/CreateVault/sign.command && find /Volumes/EFI ! -path "/Volumes/EFI" -name ".*" -o -name "Utilities" | xargs rm -rf && diskutil unmount /dev/disk0s1
