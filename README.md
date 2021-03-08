@@ -17,6 +17,8 @@ File: 08532.bin
 
 \- Boot Options > Secure Boot: Disabled  
 \- Fan Always On: Disabled
+\- Hyper-Threading Technology: Enabled
+\- Virtualization Technology: Enabled
 
 \>>> Save changes (F10 key), then enter BIOS again (F10 key)
 
