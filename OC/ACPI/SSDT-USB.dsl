@@ -26,7 +26,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         Name (_UPC, Package (0x04)  // _UPC: USB Port Capabilities
         {
             0xFF, 
-            0x03, 
+            Zero, 
             Zero, 
             Zero
         })
@@ -37,7 +37,7 @@ DefinitionBlock ("", "SSDT", 2, "HACK", "USB", 0x00000000)
         Name (_UPC, Package (0x04)  // _UPC: USB Port Capabilities
         {
             0xFF, 
-            0x03, 
+            Zero, 
             Zero, 
             Zero
         })
